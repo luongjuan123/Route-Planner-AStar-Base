@@ -18,10 +18,8 @@ class RoutingEngine:
         return great_circle(coord1, coord2).meters
 
     def get_traffic_multiplier(self, start_coords, end_coords, free_flow_seconds):
-
         try:
             # Ask Google for current duration in traffic
-            # Note: start_coords is (lat, lng)
             result = self.gmaps.distance_matrix(
                 origins=[start_coords],
                 destinations=[end_coords],
@@ -31,16 +29,24 @@ class RoutingEngine:
 
             element = result['rows'][0]['elements'][0]
             if element['status'] == 'OK':
-                real_duration = element['duration_in_traffic']['value']  # in seconds
+                real_duration = element['duration_in_traffic']['value']
 
-                if free_flow_seconds < 10:
-                    return 1.0
+                if free_flow_seconds < 10: return 1.0
 
-                multiplier = real_duration / free_flow_seconds
-                return max(1.0, multiplier)
+                # Basic ratio: Real Time / Free Flow Time
+                ratio = real_duration / free_flow_seconds
+
+                # --- NEW: EXPONENTIAL CONGESTION PENALTY ---
+                # If traffic is bad (ratio > 1.5), we punish it harder.
+                # A ratio of 2.0 (double time) becomes a weight of 4.0.
+                # This forces A* to desperately find ANY other way, even a long detour.
+                if ratio > 1.5:
+                    return ratio ** 2  # Exponential penalty for heavy traffic
+                else:
+                    return ratio
 
         except Exception as e:
-            print(f"Traffic fetch failed, defaulting to 1.0: {e}")
+            print(f"Traffic fetch failed: {e}")
 
         return 1.0
 
