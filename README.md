@@ -1,4 +1,4 @@
-# 🚗 Smart Route Planner (A* + Real-Time Traffic)
+# Route Planner A* BASE
 
 A professional desktop route planning application built with **Python**. This tool utilizes an advanced **Traffic-Aware A* (A-Star) Algorithm** to calculate optimal driving paths on real-world road networks. It goes beyond simple distance calculation by integrating **Google Maps Real-Time Traffic** data to penalize congested routes exponentially.
 
@@ -10,14 +10,14 @@ A professional desktop route planning application built with **Python**. This to
 
 Unlike standard GPS tools, this Route Planner gives users granular control over their pathfinding logic. It visualizes the exact graph nodes traversed and allows for multi-stop trip planning. The application features a robust **MVC Architecture**, a modern dark-themed UI, and intelligent graph caching for high performance.
 
-## ✨ Key Features
+##  Key Features
 
-### 🧠 Intelligent Pathfinding
+###  Intelligent Pathfinding
 - **Traffic-Aware A*:** The algorithm minimizes **Time**, not just distance.  
 - **Exponential Congestion Penalty:** Uses a non-linear cost function to aggressively avoid heavy traffic.  
 - **Heuristic Optimization:** Implements Haversine distance heuristics for rapid convergence.  
 
-### 🖥️ Modern User Interface
+###  Modern User Interface
 - **Interactive Map:** Powered by `tkintermapview` with smooth zooming and panning.  
 - **Drag & Drop Waypoints:** Reorder stops instantly using a custom-built draggable listbox.  
 - **Smart Search:** Google Places API autocomplete for finding addresses.  
@@ -26,11 +26,11 @@ Unlike standard GPS tools, this Route Planner gives users granular control over 
   - Red dots for snapped road-network nodes  
   - Hover effects for reactive UI elements  
 
-### 🚀 Performance
+###  Performance
 - **Graph Caching:** Automatically saves downloaded OpenStreetMap data (`.graphml`) to a local `cache/` directory.  
 - **Multi-threading:** Heavy routing calculations run on background threads to keep the GUI responsive.  
 
-## 🛠️ Project Structure
+##  Project Structure
 
 ```text
 mid_mat/
@@ -48,7 +48,7 @@ mid_mat/
         └── widgets.py       # Custom Widgets (DragDropListbox)
 ```
 
-## ⚙️ Installation
+##  Installation
 
 ### Prerequisites
 - Python 3.10 or higher  
@@ -80,7 +80,7 @@ Open `config.py` and paste your API key:
 GOOGLE_MAPS_API_KEY = "AIzaSy..."  # Replace with your actual key
 ```
 
-## 🚀 Usage
+##  Usage
 
 ### Launch the App
 
@@ -101,7 +101,7 @@ python main.py
 - First run downloads map data (takes a few seconds)  
 - Next runs load from cache instantly  
 
-## 🧠 Technical Deep Dive: The Cost Function
+##  Technical Deep Dive: The Cost Function
 
 The routing engine uses A* with a custom cost function:
 
@@ -124,12 +124,8 @@ Cost = T_free_flow × (TrafficRatio)^2
 Haversine distance divided by maximum highway speed.  
 This heuristic is admissible and guarantees the shortest-time path.
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome.
-
-## 📄 License
-
-See the LICENSE file for more information.
 
 Developed with Python, CustomTkinter, and OpenStreetMap.
