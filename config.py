@@ -2,7 +2,7 @@
 import os
 
 CACHE_DIR = os.path.join(os.getcwd(), "cache")
-GOOGLE_MAPS_API_KEY = "AIzaSyC8RVMl32wY41g1CMTKPni95wF7vm8H_hU"
+GOOGLE_MAPS_API_KEY = ""
 
 # App Settings
 APP_TITLE = "A* Route Planner"
