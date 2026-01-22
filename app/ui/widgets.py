@@ -6,13 +6,11 @@ class DragDropListbox(tk.Listbox):
 
     def __init__(self, master, on_reorder_callback=None, on_delete_callback=None, **kw):
         super().__init__(master, **kw)
-        # 1. Bind Mouse Events
         self.bind('<Button-1>', self.on_click)
         self.bind('<B1-Motion>', self.on_drag)
         self.bind('<ButtonRelease-1>', self.on_drop)
         self.bind('<Button-3>', self.show_context_menu)
 
-        # --- NEW: Hover Events ---
         self.bind('<Motion>', self.on_mouse_move)
         self.bind('<Leave>', self.on_mouse_leave)
 
@@ -20,7 +18,6 @@ class DragDropListbox(tk.Listbox):
         self.on_delete_callback = on_delete_callback
         self.cur_index = None
 
-        # --- NEW: Color Config ---
         self.default_bg = kw.get("bg", "#1f2937")
         self.hover_bg = "#374151"  # Lighter gray for hover
         self.hovered_index = None
@@ -45,15 +42,12 @@ class DragDropListbox(tk.Listbox):
                 self.on_reorder_callback(self.cur_index, new_index)
         self.cur_index = None
 
-    # --- NEW: Context Menu Logic ---
     def show_context_menu(self, event):
-        # 1. Select the item under the mouse automatically
         index = self.nearest(event.y)
         self.selection_clear(0, tk.END)
         self.selection_set(index)
         self.activate(index)
 
-        # 2. Show the menu at the mouse position
         self.context_menu.post(event.x_root, event.y_root)
 
     def delete_selected(self):
@@ -64,10 +58,8 @@ class DragDropListbox(tk.Listbox):
             self.on_delete_callback(index)
 
     def on_mouse_move(self, event):
-        # 1. Find which row is under the mouse
         index = self.nearest(event.y)
 
-        # 2. Only update if we moved to a new row
         if index != self.hovered_index:
             # Restore the previous row to normal color
             if self.hovered_index is not None and self.hovered_index < self.size():
