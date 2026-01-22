@@ -196,7 +196,6 @@ class RouteApp(ctk.CTk):
             self.hide_suggestions()
             self.add_manual_stop()
 
-    # --- NEW: Suggestion Hover Logic ---
     def on_suggestion_hover(self, event):
         # Find which item is under the mouse
         index = self.suggestion_list.nearest(event.y)
