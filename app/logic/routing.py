@@ -19,7 +19,6 @@ class RoutingEngine:
 
     def get_traffic_multiplier(self, start_coords, end_coords, free_flow_seconds):
         try:
-            # Ask Google for current duration in traffic
             result = self.gmaps.distance_matrix(
                 origins=[start_coords],
                 destinations=[end_coords],
@@ -36,10 +35,7 @@ class RoutingEngine:
                 # Basic ratio: Real Time / Free Flow Time
                 ratio = real_duration / free_flow_seconds
 
-                # --- NEW: EXPONENTIAL CONGESTION PENALTY ---
-                # If traffic is bad (ratio > 1.5), we punish it harder.
-                # A ratio of 2.0 (double time) becomes a weight of 4.0.
-                # This forces A* to desperately find ANY other way, even a long detour.
+
                 if ratio > 1.5:
                     return ratio ** 2  # Exponential penalty for heavy traffic
                 else:
