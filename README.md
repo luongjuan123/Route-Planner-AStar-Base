@@ -6,7 +6,7 @@ A professional desktop route planning application built with **Python**. This to
 ![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
 ![GUI](https://img.shields.io/badge/GUI-CustomTkinter-orange?style=for-the-badge)
 
-## 📖 Overview
+## Overview
 
 Unlike standard GPS tools, this Route Planner gives users granular control over their pathfinding logic. It visualizes the exact graph nodes traversed and allows for multi-stop trip planning. The application features a robust **MVC Architecture**, a modern dark-themed UI, and intelligent graph caching for high performance.
 
